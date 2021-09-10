@@ -26,3 +26,6 @@ Example NixOS configuration:
     };
 }
 ```
+
+The Nix code in this repository is licensed CC0.
+See LICENSE.CC0 for more information.
