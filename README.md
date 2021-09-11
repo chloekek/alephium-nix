@@ -24,6 +24,16 @@ Example NixOS configuration:
         ];
         network.network-id = 1;
     };
+
+    # Example configuration for Prometheus.
+    # If you do not use Prometheus then you can ignore this example.
+    services.prometheus.scrapeConfigs = [
+        {
+            job_name = "alephium";
+            scrape_interval = "10s";
+            static_configs = [ { targets = [ "localhost:12973" ]; } ];
+        }
+    ];
 }
 ```
 
