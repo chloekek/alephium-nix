@@ -30,6 +30,7 @@ in
 
         discovery.bootstrap = lib.mkOption {
             type = lib.types.listOf lib.types.str;
+            default = [ "testnet-bootstrap.alephium.org:9973" ];
             description = ''
                 Addresses of other Alephium nodes to connect to initially.
                 This is different for each network, so there is no default.
