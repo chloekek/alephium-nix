@@ -8,7 +8,18 @@ Example NixOS configuration:
 ```nix
 { ... }:
 
+let
+    alephium-nix = fetchTarball {
+        url = "https://github.com/chloekek/alephium-nix/archive/<version>.tar.gz";
+        sha256 = "<hash>";
+    };
+in
+
 {
+    imports = [
+        (alephium-nix + "/nixos-module.nix")
+    ];
+
     services.alephium = {
         enable = true;
         discovery.bootstrap = [
