@@ -2,11 +2,11 @@
 
 stdenvNoCC.mkDerivation rec {
     pname = "alephium";
-    version = "0.10.0";
+    version = "0.10.1";
 
     src = fetchurl {
         url = "https://github.com/alephium/alephium/releases/download/v${version}/alephium-${version}.jar";
-        sha256 = "01rksaza78kyal7dh8mcsd808s38npn0q309n9qx5qgy52c52yxm";
+        sha256 = "1bvpjg0ghgqs1qr7ym2ain5qs034c4bg48fn0b7si500z5r6ad05";
     };
 
     buildInputs = [
