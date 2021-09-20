@@ -20,7 +20,7 @@ in
 
         package = lib.mkOption {
             type = lib.types.package;
-            default = pkgs.callPackage ./alephium.nix { };
+            default = pkgs.alephium;
             description = ''
                 Package that provides the `alephium` executable.
                 The `alephium` executable is typically a JVM
@@ -55,18 +55,20 @@ in
 
     };
 
-    config = lib.mkIf cfg.enable {
+    config = {
 
-        users.users.alephium = {
+        nixpkgs.overlays = [ (import ./overlay.nix) ];
+
+        users.users.alephium = lib.mkIf cfg.enable {
             group = "alephium";
             description = "Alephium node user";
             isSystemUser = true;
         };
 
-        users.groups.alephium = {
+        users.groups.alephium = lib.mkIf cfg.enable {
         };
 
-        environment.etc."alephium/user.conf" = {
+        environment.etc."alephium/user.conf" = lib.mkIf cfg.enable {
             text = ''
                 alephium.mining.miner-addresses = ${
                     builtins.toJSON cfg.mining.miner-addresses
@@ -84,7 +86,7 @@ in
             '';
         };
 
-        systemd.services.alephium = {
+        systemd.services.alephium = lib.mkIf cfg.enable {
             description = "Alephium node";
 
             # TODO: Configure service to restart when config file has changed?
