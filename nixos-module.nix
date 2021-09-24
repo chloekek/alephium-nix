@@ -37,11 +37,12 @@ in
         };
 
         mining.miner-addresses = lib.mkOption {
-            type = lib.types.listOf lib.types.str;
-            default = [];
+            type = lib.types.nullOr (lib.types.listOf lib.types.str);
+            default = null;
             description = ''
                 List of addresses to which mining rewards are to be deposited.
-                You can leave this empty if you do not participate in mining.
+                You can leave this null if you do not participate in mining.
+                If not null, must contain exactly four elements.
             '';
         };
 
@@ -70,8 +71,13 @@ in
 
         environment.etc."alephium/user.conf" = lib.mkIf cfg.enable {
             text = ''
-                alephium.mining.miner-addresses = ${
-                    builtins.toJSON cfg.mining.miner-addresses
+                ${
+                    if cfg.mining.miner-addresses == null then
+                        ""
+                    else
+                        ''alephium.mining.miner-addresses = ${
+                            builtins.toJSON cfg.mining.miner-addresses
+                        }''
                 }
                 alephium.network.network-id = ${
                     toString cfg.network.network-id
