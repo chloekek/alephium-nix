@@ -23,7 +23,7 @@ in
     services.alephium = {
         enable = true;
         discovery.bootstrap = [
-            "testnet-bootstrap.alephium.org:9973"
+            "testnet-11-bootstrap.alephium.org:9973"
         ];
         mining.miner-addresses = [
             "1cLiepA3tKr5d47cMZVb2zdtcWwwSqFibmSvcaoUHLg8"
