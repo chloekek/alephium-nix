@@ -29,10 +29,11 @@ in
         };
 
         discovery.bootstrap = lib.mkOption {
-            type = lib.types.listOf lib.types.str;
+            type = lib.types.nullOr (lib.types.listOf lib.types.str);
+            default = null;
             description = ''
                 Addresses of other Alephium nodes to connect to initially.
-                This is different for each network, so there is no default.
+                If null, Alephium will use the default bootstrap nodes.
             '';
         };
 
@@ -48,9 +49,10 @@ in
 
         network.network-id = lib.mkOption {
             type = lib.types.int;
+            default = 0;
             description = ''
                 Alephium network identifier.
-                Set to 1 for testnet.
+                Set to 0 for mainnet, or 1 for testnet.
             '';
         };
 
@@ -82,8 +84,13 @@ in
                 alephium.network.network-id = ${
                     toString cfg.network.network-id
                 }
-                alephium.discovery.bootstrap = ${
-                    builtins.toJSON cfg.discovery.bootstrap
+                ${
+                    if cfg.discovery.bootstrap == null then
+                        ""
+                    else
+                        ''alephium.discovery.bootstrap = ${
+                            builtins.toJSON cfg.discovery.bootstrap
+                        }''
                 }
                 alephium.wallet.secret-dir = /var/lib/alephium/wallet
 
