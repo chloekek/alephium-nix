@@ -1,8 +1,5 @@
 Work in progress but if you feel adventurous you can try it out.
 
-After changing Alephium version you may have to remove `/var/lib/alephium`.
-This is because testnet database format is not stable.
-
 Example NixOS configuration:
 
 ```nix
