@@ -17,22 +17,19 @@ in
         (alephium-nix + "/nixos-module.nix")
     ];
 
-    services.alephium = {
-        enable = true;
-        discovery.bootstrap = [
-            "testnet-11-bootstrap.alephium.org:9973"
-        ];
-        mining.miner-addresses = [
-            "1cLiepA3tKr5d47cMZVb2zdtcWwwSqFibmSvcaoUHLg8"
-            "1DJ4nnfaVWHQTz3n8BTTeByWkKGYf3baPCPDknenRGtYJ"
-            "1AhwiVEdzWD3abZpRHyMSrPEDwoAwySrYZAgMZz4bhDCi"
-            "1BkWG82inFPdvmB2HFbFQvosnxddF78Jvi9DbLqZbHwVw"
-        ];
-        network.network-id = 1;
-    };
+    services.alephium.enable = true;
+
+    # If you enable mining, replace these addresses with yours.
+    services.alephium.mining.miner-addresses = [
+        "1cLiepA3tKr5d47cMZVb2zdtcWwwSqFibmSvcaoUHLg8"
+        "1DJ4nnfaVWHQTz3n8BTTeByWkKGYf3baPCPDknenRGtYJ"
+        "1AhwiVEdzWD3abZpRHyMSrPEDwoAwySrYZAgMZz4bhDCi"
+        "1BkWG82inFPdvmB2HFbFQvosnxddF78Jvi9DbLqZbHwVw"
+    ];
 
     # Example configuration for Prometheus.
     # If you do not use Prometheus then you can ignore this example.
+    services.prometheus.enable = true;
     services.prometheus.scrapeConfigs = [
         {
             job_name = "alephium";
